@@ -1,9 +1,12 @@
+import './styles/App.css';
+import Editor from './components/Editor';
+
 function App() {
   return (
     <>
-      <div>hello</div>
+      <Editor />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
