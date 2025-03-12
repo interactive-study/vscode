@@ -13,7 +13,6 @@ body {
   display: flex;
   min-width: 320px;
   height: 100vh;
-  background-color: whitesmoke;
 }
 
 #root {
@@ -38,6 +37,12 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+div,
+textarea {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 @font-face {
