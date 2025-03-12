@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   font-family: 'Cascadia Code', monospace;
+  border-bottom: 3px solid black;
+  background-color: maroon;
 }
 
 .lineNumContainer {

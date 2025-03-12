@@ -5,6 +5,7 @@
   justify-content: center;
   perspective: 300px;
   overflow-y: hidden;
+  background-color: maroon;
 }
 
 .reflection {
