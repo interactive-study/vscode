@@ -65,19 +65,23 @@ export default function Editor() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.lineNumContainer}>
-        {lines.map((_, index) => (
-          <div key={index}>{index + 1}</div>
-        ))}
-      </div>
-      <textarea
-        ref={textAreaRef}
-        className={styles.textarea}
-        value={code}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        spellCheck={false}
-      />
+      <section className={styles.cubeFaceFront}>
+        <div className={styles.lineNumContainer}>
+          {lines.map((_, index) => (
+            <div key={index}>{index + 1}</div>
+          ))}
+        </div>
+        <textarea
+          ref={textAreaRef}
+          className={styles.textarea}
+          value={code}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          spellCheck={false}
+        />
+      </section>
+
+      <section className={styles.cubeFaceSide} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
+export const INITIAL_CODE = `<div>\n  Empty thoughts...\n</div>`;
+
 type CodeContextType = {
   code: string;
   setCode: (code: string) => void;
@@ -16,7 +18,7 @@ const useCodeContext = () => {
 };
 
 const CodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [code, setCode] = useState(`<div>\n  Hello, World!\n</div>`);
+  const [code, setCode] = useState(INITIAL_CODE);
   return (
     <CodeContext.Provider value={{ code, setCode }}>
       {children}

@@ -1,0 +1,36 @@
+.buttonContainer {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  min-height: 44px;
+  padding: 4px 8px 6px 8px;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--text-color);
+  text-align: right;
+  font-family: 'Cascadia Code';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+
+  &:hover {
+    background: var(--button-bg);
+    text-decoration-color: var(--text-color);
+  }
+}
+
+.contentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  white-space: pre-line;
+}

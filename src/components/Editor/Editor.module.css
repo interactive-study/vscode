@@ -1,17 +1,40 @@
 .container {
-  width: 100%;
-  height: 50vh;
+  display: flex;
+  position: relative;
+}
+
+.cubeFaceFront {
+  position: relative;
+  width: 30vw;
+  max-width: 500px;
+  aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
   font-family: 'Cascadia Code', monospace;
-  border-bottom: 3px solid black;
-  background-color: maroon;
+  flex-shrink: 0;
+  background-color: var(--editor-bg);
+  transition: background-color 0.3s ease;
+}
+
+.cubeFaceSide {
+  position: absolute;
+  bottom: 0;
+  right: var(--cube-side-right);
+  left: var(--cube-side-left);
+  width: 9vw;
+  max-width: 120px;
+  height: 30vw;
+  max-height: 500px;
+  background-color: var(--editor-side-bg);
+  transform: var(--cube-transform);
+  transform-origin: var(--cube-transform-origin);
+  transition: background-color 0.3s ease;
 }
 
 .lineNumContainer {
   width: 20px;
   height: 100%;
-  background-color: rgb(30, 30, 30);
+  background-color: transparent;
   color: #bbb;
   padding: 1rem;
   text-align: right;
@@ -19,21 +42,17 @@
 }
 
 .textarea {
-  width: 500px;
+  width: 100%;
   height: 100%;
   resize: none;
-  background-color: rgb(30, 30, 30);
+  background-color: transparent;
   border: none;
-  color: white;
+  color: var(--editor-text);
   padding: 1rem;
   line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
 .textarea:focus {
   outline: none;
-}
-
-.reflection {
-  width: 40%;
-  height: 50%;
 }
