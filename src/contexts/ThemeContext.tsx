@@ -6,7 +6,7 @@ import {
   useEffect,
 } from 'react';
 
-type Theme = 'light' | 'dark';
+type Theme = 'consciousness' | 'subconsciousness';
 
 type ThemeContextType = {
   theme: Theme;
@@ -28,10 +28,12 @@ export const useThemeContext = () => {
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('subconsciousness');
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme((prevTheme) =>
+      prevTheme === 'subconsciousness' ? 'consciousness' : 'subconsciousness'
+    );
   };
 
   useEffect(() => {

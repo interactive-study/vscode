@@ -24,6 +24,10 @@
   transition: background 0.3s ease;
 }
 
+.fragments {
+  color: red;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

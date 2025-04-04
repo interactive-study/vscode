@@ -2,9 +2,12 @@ import { useRef, useEffect } from 'react';
 import { useCodeContext } from '../../contexts/CodeContext';
 
 import styles from './Editor.module.css';
+import { insanitize, sanitize } from '../../insanity';
+import { useThemeContext } from '../../contexts/ThemeContext';
 
 export default function Editor() {
   const { code, setCode } = useCodeContext();
+  const { theme } = useThemeContext();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const caretPositionRef = useRef<number>(100);
 
@@ -63,6 +66,9 @@ export default function Editor() {
     }
   }, [code]);
 
+  const sane = sanitize(code);
+  const insane = insanitize(code, sane);
+
   return (
     <div className={styles.container}>
       <section className={styles.cubeFaceFront}>
@@ -79,6 +85,17 @@ export default function Editor() {
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />
+        {theme === 'subconsciousness' && (
+          <div className={styles.display}>
+            {code.split('').map((text, i) => {
+              if (text)
+                if (insane.some(({ index }) => index === i)) {
+                  return <span className={styles.repressed}>{text}</span>;
+                }
+              return text;
+            })}
+          </div>
+        )}
       </section>
 
       <section className={styles.cubeFaceSide} />
