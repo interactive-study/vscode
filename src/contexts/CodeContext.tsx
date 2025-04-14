@@ -1,29 +1,17 @@
-import { createContext, useContext, useState } from 'react';
-
-export const INITIAL_CODE = `<div>\n  Empty thoughts...\n</div>`;
-
-type CodeContextType = {
-  code: string;
-  setCode: (code: string) => void;
-};
-
-const CodeContext = createContext<CodeContextType | null>(null);
+import { useTabsContext } from './TabsContext';
 
 const useCodeContext = () => {
-  const context = useContext(CodeContext);
-  if (!context) {
-    throw new Error('Cannot find CodeContext');
-  }
-  return context;
+  const context = useTabsContext();
+  const { tabs, currentTabIndex, setTabs } = context;
+
+  const code = tabs[currentTabIndex].code;
+  const setCode = (code: string) => {
+    const updatedTabs = [...tabs];
+    updatedTabs[currentTabIndex].code = code;
+    setTabs(updatedTabs);
+  };
+
+  return { code, setCode };
 };
 
-const CodeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [code, setCode] = useState(INITIAL_CODE);
-  return (
-    <CodeContext.Provider value={{ code, setCode }}>
-      {children}
-    </CodeContext.Provider>
-  );
-};
-
-export { CodeProvider, useCodeContext };
+export { useCodeContext };
