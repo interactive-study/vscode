@@ -9,6 +9,8 @@
 
   --bg-color: #ffffff;
   --editor-bg: #333333;
+  --editor-border: #555555;
+  --editor-border-light: #777777;
   --editor-side-bg: #e0e0e0;
   --reflection-bg: linear-gradient(180deg, #8a8a8a 0%, #e0e0e0 100%);
   --text-color: #111111;
@@ -24,6 +26,8 @@
 [data-theme='consciousness'] {
   --bg-color: #333333;
   --editor-bg: #ffffff;
+  --editor-border: #333333;
+  --editor-border-light: #555555;
   --editor-side-bg: #8a8a8a;
   --reflection-bg: linear-gradient(180deg, #e0e0e0 0%, #8a8a8a 100%);
   --text-color: #ffffff;

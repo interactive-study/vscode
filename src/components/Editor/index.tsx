@@ -1,13 +1,17 @@
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCodeContext } from '../../contexts/CodeContext';
 
+import XIconUrl from '../../assets/icons/x.svg';
+import { useTabsContext } from '../../contexts/TabsContext';
+// import { useThemeContext } from '../../contexts/ThemeContext';
+// import { insanitize, sanitize } from '../../insanity';
 import styles from './Editor.module.css';
-import { insanitize, sanitize } from '../../insanity';
-import { useThemeContext } from '../../contexts/ThemeContext';
 
 export default function Editor() {
+  const { tabs, setTabs, currentTabIndex, setCurrentTabIndex } =
+    useTabsContext();
   const { code, setCode } = useCodeContext();
-  const { theme } = useThemeContext();
+  // const { theme } = useThemeContext();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const caretPositionRef = useRef<number>(100);
 
@@ -66,36 +70,64 @@ export default function Editor() {
     }
   }, [code]);
 
-  const sane = sanitize(code);
-  const insane = insanitize(code, sane);
+  // const sane = sanitize(code);
+  // const insane = insanitize(code, sane);
 
   return (
     <div className={styles.container}>
       <section className={styles.cubeFaceFront}>
-        <div className={styles.lineNumContainer}>
-          {lines.map((_, index) => (
-            <div key={index}>{index + 1}</div>
+        <div className={styles.tabs}>
+          {tabs.map((tab, index) => (
+            <button
+              key={index}
+              className={`${styles.tab} ${index === currentTabIndex ? styles.selected : ''}`}
+              onClick={() => {
+                setCurrentTabIndex(index);
+              }}
+            >
+              <span>{tab.title}</span>
+              <button
+                className={styles.closeButton}
+                onClick={() => {
+                  const newTabs = tabs.filter((_, i) => i !== index);
+                  setTabs(newTabs);
+                  if (index === currentTabIndex) {
+                    setCurrentTabIndex(Math.max(index - 1, 0));
+                  }
+                }}
+              >
+                <img src={XIconUrl} width={16} height={16} />
+              </button>
+            </button>
           ))}
         </div>
-        <textarea
-          ref={textAreaRef}
-          className={styles.textarea}
-          value={code}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          spellCheck={false}
-        />
-        {theme === 'subconsciousness' && (
-          <div className={styles.display}>
-            {code.split('').map((text, i) => {
-              if (text)
-                if (insane.some(({ index }) => index === i)) {
-                  return <span className={styles.repressed}>{text}</span>;
-                }
-              return text;
-            })}
+
+        <div className={styles.editor}>
+          <div className={styles.lineNumContainer}>
+            {lines.map((_, index) => (
+              <div key={index}>{index + 1}</div>
+            ))}
           </div>
-        )}
+          <textarea
+            ref={textAreaRef}
+            className={styles.textarea}
+            value={code}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            spellCheck={false}
+          />
+          {/* {theme === 'subconsciousness' && (
+            <div className={styles.display}>
+              {code.split('').map((text, i) => {
+                if (text)
+                  if (insane.some(({ index }) => index === i)) {
+                    return <span className={styles.repressed}>{text}</span>;
+                  }
+                return text;
+              })}
+            </div>
+          )} */}
+        </div>
       </section>
 
       <section className={styles.cubeFaceSide} />

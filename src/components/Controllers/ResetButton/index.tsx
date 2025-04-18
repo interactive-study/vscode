@@ -1,13 +1,13 @@
 import { useState } from 'react';
+import { useTabsContext } from '../../../contexts/TabsContext';
 import ControllerButton from '../ControllerButton';
-import { INITIAL_CODE, useCodeContext } from '../../../contexts/CodeContext';
 
 export default function ResetButton() {
-  const { setCode } = useCodeContext();
+  const { resetTabs } = useTabsContext();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleReset = () => {
-    setCode(INITIAL_CODE);
+    resetTabs();
   };
 
   const handleMouseEnter = () => {

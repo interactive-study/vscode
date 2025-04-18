@@ -5,15 +5,68 @@
 
 .cubeFaceFront {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 30vw;
   max-width: 500px;
   aspect-ratio: 1/1;
+  overflow-y: auto;
+}
+
+.tabs {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 40px;
+  flex-shrink: 0;
+  background-color: var(--editor-bg);
+  border-bottom: 1px solid var(--editor-border);
+  overflow-x: auto;
+  z-index: 1;
+}
+
+.tab {
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--editor-text);
+  font-family: 'Cascadia Code', monospace;
+  font-size: 0.85rem;
+  border-right: 1px solid var(--editor-border);
+  border-top: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.tab.selected {
+  border-top-color: var(--editor-border-light);
+}
+.closeButton {
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: 1px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+.closeButton:hover {
+  background-color: var(--editor-border);
+}
+.tab:hover .closeButton {
+  opacity: 1;
+}
+
+.editor {
+  flex: 1;
+  position: relative;
   display: flex;
   justify-content: center;
   font-family: 'Cascadia Code', monospace;
   flex-shrink: 0;
   background-color: var(--editor-bg);
   transition: background-color 0.3s ease;
+  overflow: hidden;
 }
 
 .cubeFaceSide {
