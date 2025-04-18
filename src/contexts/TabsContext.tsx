@@ -1,5 +1,10 @@
 import { createContext, useContext, useState } from 'react';
 
+interface Tab {
+  title: string;
+  code: string;
+}
+
 const TAP1_INITIAL_CODE = `<room>
   <desk>
     <drawer>hair tie</drawer>
@@ -59,15 +64,15 @@ const TAB4_INITIAL_CODE = `<bathroom>
 </bathroom>`;
 
 const INITIAL_TABS = [
-  { code: TAP1_INITIAL_CODE },
-  { code: TAP2_INITIAL_CODE },
-  { code: TAB3_INITIAL_CODE },
-  { code: TAB4_INITIAL_CODE },
+  { title: 'room.xml', code: TAP1_INITIAL_CODE },
+  { title: 'residue.xml', code: TAP2_INITIAL_CODE },
+  { title: 'body.xml', code: TAB3_INITIAL_CODE },
+  { title: 'fog.xml', code: TAB4_INITIAL_CODE },
 ];
 
 type TabsContextType = {
-  tabs: { code: string }[];
-  setTabs: (tabs: { code: string }[]) => void;
+  tabs: Tab[];
+  setTabs: (tabs: Tab[]) => void;
   currentTabIndex: number;
   setCurrentTabIndex: (index: number) => void;
   resetTabs: () => void;
