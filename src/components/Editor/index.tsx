@@ -3,7 +3,7 @@ import { useCodeContext } from '../../contexts/CodeContext';
 
 import XIconUrl from '../../assets/icons/x.svg';
 import { useTabsContext } from '../../contexts/TabsContext';
-// import { useThemeContext } from '../../contexts/ThemeContext';
+import { useThemeContext } from '../../contexts/ThemeContext';
 // import { insanitize, sanitize } from '../../insanity';
 import styles from './Editor.module.css';
 
@@ -11,7 +11,7 @@ export default function Editor() {
   const { tabs, setTabs, currentTabIndex, setCurrentTabIndex } =
     useTabsContext();
   const { code, setCode } = useCodeContext();
-  // const { theme } = useThemeContext();
+  const { theme } = useThemeContext();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const caretPositionRef = useRef<number>(100);
 
@@ -68,6 +68,16 @@ export default function Editor() {
       textAreaRef.current.selectionStart = textAreaRef.current.selectionEnd =
         caretPositionRef.current;
     }
+    textAreaRef.current?.addEventListener(
+      'beforeinput',
+      beforeInputEventHandler
+    );
+    return () => {
+      textAreaRef.current?.removeEventListener(
+        'beforeinput',
+        beforeInputEventHandler
+      );
+    };
   }, [code]);
 
   // const sane = sanitize(code);
@@ -116,6 +126,7 @@ export default function Editor() {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             spellCheck={false}
+            readOnly={theme === 'subconsciousness'}
           />
           {/* {theme === 'subconsciousness' && (
             <div className={styles.display}>
@@ -135,3 +146,91 @@ export default function Editor() {
     </div>
   );
 }
+
+const beforeInputEventHandler = (e: InputEvent) => {
+  console.log('beforeInputEventHandler', e);
+  if (!e || !e.currentTarget) return;
+  const currentTarget = e.currentTarget as HTMLTextAreaElement;
+
+  const prevCode = currentTarget.value;
+  let c = '';
+  for (let leftOpen = currentTarget.selectionStart - 1; leftOpen >= 0; leftOpen--) {
+    c = prevCode[leftOpen];
+    if (c === '\n' || c === '>') break;
+    if (c === '<') {
+      console.log('leftOpen', leftOpen);
+      // let i;
+      // for (
+      //   i = currentTarget.selectionStart;
+      //   i < currentTarget.selectionEnd;
+      //   i++
+      // ) {
+      //   c = oldCode[i];
+      //   if (c === '<' || c === '>' || c === '\n') break;
+      // }
+      for (
+        let leftClose = currentTarget.selectionEnd;
+        leftClose < prevCode.length;
+        leftClose++
+      ) {
+        c = prevCode[leftClose];
+        if (c === '<' || c === '\n') break;
+        if (c === '>') {
+          console.log('leftClose', leftClose);
+          for (
+            let rightOpen = leftClose + 1;
+            rightOpen < prevCode.length;
+            rightOpen++
+          ) {
+            c = prevCode[rightOpen];
+            if (c === '>') break;
+            if (c === '/' && prevCode[rightOpen - 1] === '<') {
+              console.log('rightOpen', rightOpen);
+              const rightClose = rightOpen + (leftClose - leftOpen);
+              console.log('rightClose', rightClose);
+              console.log(
+                prevCode.substring(leftOpen + 1, leftClose) ===
+                  prevCode.substring(rightOpen + 1, rightClose)
+              );
+              if (
+                prevCode.substring(leftOpen + 1, leftClose) ===
+                prevCode.substring(rightOpen + 1, rightClose)
+              ) {
+                const relativeStart = currentTarget.selectionStart - leftOpen;
+                const relativeEnd = currentTarget.selectionEnd - leftOpen;
+
+                if (e.inputType === 'insertText') {
+                  currentTarget.value =
+                    prevCode.substring(0, currentTarget.selectionStart) +
+                    e.data +
+                    prevCode.substring(
+                      currentTarget.selectionEnd,
+                      rightOpen + relativeStart
+                    ) +
+                    e.data +
+                    prevCode.substring(rightOpen + relativeEnd);
+                } else if (e.inputType === 'deleteContentBackward') {
+                  currentTarget.value =
+                    prevCode.substring(0, currentTarget.selectionStart - 1) +
+                    prevCode.substring(
+                      currentTarget.selectionEnd,
+                      rightOpen + relativeStart - 1
+                    ) +
+                    prevCode.substring(rightOpen + relativeEnd);
+                }
+                break;
+              }
+            }
+          }
+          break;
+        }
+      }
+    }
+  }
+  if (e.data === '<') {
+    currentTarget.value =
+      currentTarget.value.substring(0, currentTarget.selectionStart) +
+      '<></>' +
+      currentTarget.value.substring(currentTarget.selectionEnd);
+  }
+};

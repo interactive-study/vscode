@@ -99,7 +99,7 @@
   resize: none;
   background-color: transparent;
   border: none;
-  color: var(--editor-text);
+  color: white;
   padding: 1rem;
   line-height: 1.5;
   transition: color 0.3s ease;
@@ -109,6 +109,10 @@
 
 .textarea:focus {
   outline: none;
+}
+
+[data-theme='subconsciousness'] .textarea {
+  pointer-events: none;
 }
 
 .display {
