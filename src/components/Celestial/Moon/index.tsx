@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './Moon.module.css';
+import { useThemeContext } from '../../../contexts/ThemeContext';
 
 export default function Moon() {
   const paths = [
@@ -74,11 +75,12 @@ export default function Moon() {
   const zPathRef = useRef<SVGPathElement | null>(null);
   const zzPathRef = useRef<SVGPathElement | null>(null);
   const zzzPathRef = useRef<SVGPathElement | null>(null);
-  const currentIndx = useRef(0);
+  const themeContext = useThemeContext();
 
   useEffect(() => {
     let lastUpdated = 0;
-    let active = true;
+    let currentIndex = 0;
+    let active = false;
     const interval = 500;
 
     const animateSun = () => {
@@ -89,20 +91,33 @@ export default function Moon() {
         requestAnimationFrame(animateSun);
         return;
       } else {
-        zPathRef.current?.setAttribute('d', paths[currentIndx.current][0]);
-        zzPathRef.current?.setAttribute('d', paths[currentIndx.current][1]);
-        zzzPathRef.current?.setAttribute('d', paths[currentIndx.current][2]);
+        zPathRef.current?.setAttribute('d', paths[currentIndex][0]);
+        zzPathRef.current?.setAttribute('d', paths[currentIndex][1]);
+        zzzPathRef.current?.setAttribute('d', paths[currentIndex][2]);
 
-        currentIndx.current = (currentIndx.current + 1) % paths.length;
+        currentIndex = (currentIndex + 1) % paths.length;
         lastUpdated = now;
         requestAnimationFrame(animateSun);
       }
     };
 
-    animateSun();
+    const startAnimation = () => {
+      currentIndex = 0;
+      active = true;
+      animateSun();
+    };
+
+    const stopAnimation = () => {
+      active = false;
+    }
+
+    themeContext.addEventListener('subconsciousness', startAnimation);
+    themeContext.addEventListener('consciousness', stopAnimation);
 
     return () => {
       active = false;
+      themeContext.removeEventListener('subconsciousness', startAnimation);
+      themeContext.removeEventListener('consciousness', stopAnimation);
     };
   }, []);
 
