@@ -13,8 +13,8 @@ export default function Celestial() {
       <Sun />
       <div className={styles.blind} onClick={toggleTheme}>
         <span>{sunText}</span>
+        <Moon />
       </div>
-      <Moon />
     </div>
   );
 }

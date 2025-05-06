@@ -14,7 +14,7 @@ export default function Sun() {
   useEffect(() => {
     let lastUpdated = 0;
     let active = true;
-    const interval = 400;
+    const interval = 1000;
 
     const animateSun = () => {
       if (!active) return;

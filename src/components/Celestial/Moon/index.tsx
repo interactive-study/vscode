@@ -79,7 +79,7 @@ export default function Moon() {
   useEffect(() => {
     let lastUpdated = 0;
     let active = true;
-    const interval = 400;
+    const interval = 500;
 
     const animateSun = () => {
       if (!active) return;
@@ -104,7 +104,7 @@ export default function Moon() {
     return () => {
       active = false;
     };
-  });
+  }, []);
 
   return (
     <svg
