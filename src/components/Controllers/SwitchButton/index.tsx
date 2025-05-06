@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import ControllerButton from '../ControllerButton';
-import { useThemeContext } from '../../../contexts/ThemeContext';
 
 export default function SwitchButton() {
-  const { toggleTheme } = useThemeContext();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
-    toggleTheme();
+    alert("Life isn't a walk in the park, kiddo :)");
   };
 
   const handleMouseEnter = () => {
