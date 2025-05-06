@@ -89,11 +89,11 @@ const useTabsContext = () => {
 };
 
 const TabsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [tabs, setTabs] = useState(INITIAL_TABS);
+  const [tabs, setTabs] = useState(structuredClone(INITIAL_TABS));
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
   const resetTabs = () => {
-    setTabs(INITIAL_TABS);
+    setTabs(structuredClone(INITIAL_TABS));
     setCurrentTabIndex(0);
   };
 
