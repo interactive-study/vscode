@@ -78,7 +78,7 @@ export default function Editor() {
       <section className={styles.cubeFaceFront}>
         <div className={styles.tabs}>
           {tabs.map((tab, index) => (
-            <button
+            <div
               key={index}
               className={`${styles.tab} ${index === currentTabIndex ? styles.selected : ''}`}
               onClick={() => {
@@ -86,9 +86,10 @@ export default function Editor() {
               }}
             >
               <span>{tab.title}</span>
-              <button
+              <div
                 className={styles.closeButton}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   const newTabs = tabs.filter((_, i) => i !== index);
                   setTabs(newTabs);
                   if (index === currentTabIndex) {
@@ -97,8 +98,8 @@ export default function Editor() {
                 }}
               >
                 <img src={XIconUrl} width={16} height={16} />
-              </button>
-            </button>
+              </div>
+            </div>
           ))}
         </div>
 

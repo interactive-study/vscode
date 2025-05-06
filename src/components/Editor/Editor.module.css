@@ -37,6 +37,7 @@
   border-top: 2px solid transparent;
   cursor: pointer;
   transition: border-color 0.2s ease;
+  user-select: none;
 }
 .tab.selected {
   border-top-color: var(--editor-border-light);
