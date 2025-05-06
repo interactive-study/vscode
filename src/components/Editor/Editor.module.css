@@ -7,8 +7,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 30vw;
-  max-width: 500px;
+  width: var(--editor-size);
   aspect-ratio: 1/1;
   overflow-y: auto;
 }
@@ -74,10 +73,8 @@
   bottom: 0;
   right: var(--cube-side-right);
   left: var(--cube-side-left);
-  width: 9vw;
-  max-width: 120px;
-  height: 30vw;
-  max-height: 500px;
+  width: var(--editor-side-reflection-size);
+  height: var(--editor-size);
   background-color: var(--editor-side-bg);
   transform: var(--cube-transform);
   transform-origin: var(--cube-transform-origin);

@@ -7,12 +7,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --editor-size: min(30vw, 500px);
+  --editor-side-reflection-size: min(9vw, 120px);
+  --sun-size: min(10vw, 150px);
+
   --bg-color: #ffffff;
   --editor-bg: #333333;
   --editor-border: #555555;
   --editor-border-light: #777777;
   --editor-side-bg: #e0e0e0;
   --reflection-bg: linear-gradient(180deg, #8a8a8a 0%, #e0e0e0 100%);
+  --reflection-text-color: #ffffff00;
   --text-color: #111111;
   --button-bg: #e0e0e0;
   --editor-text: white;
@@ -23,21 +28,22 @@
   --cube-transform-origin: left;
 }
 
-[data-theme='consciousness'] {
+[data-theme='subconsciousness'] {
   --bg-color: #333333;
   --editor-bg: #ffffff;
   --editor-border: #333333;
   --editor-border-light: #555555;
   --editor-side-bg: #8a8a8a;
   --reflection-bg: linear-gradient(180deg, #e0e0e0 0%, #8a8a8a 100%);
+  --reflection-text-color: #ffffffff;
   --text-color: #ffffff;
   --button-bg: #8a8a8a;
   --editor-text: #333333;
-  --reflection-transform: rotateX(30deg) skewX(40deg);
+  /* --reflection-transform: rotateX(30deg) skewX(40deg);
   --cube-side-left: none;
   --cube-side-right: 100%;
   --cube-transform: rotateX(0deg) skewY(24deg);
-  --cube-transform-origin: right;
+  --cube-transform-origin: right; */
 }
 
 body {

@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    width: calc(var(--sun-size) + 30px);
+    height: calc(var(--sun-size) + 30px);
+}
+
+.sun {
+    width: var(--sun-size);
+    height: var(--sun-size);
+}
+
+.blind {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    transition: 0.3s ease;
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+[data-theme='subconsciousness'] .blind {
+    height: 100%;
+}

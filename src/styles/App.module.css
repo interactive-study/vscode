@@ -21,3 +21,9 @@
   top: 60px;
   right: 70px;
 }
+
+.celestial {
+  position: fixed;
+  top: calc(20vh - var(--sun-size));
+  left: calc(50vw - min(15vw, 250px) - var(--sun-size) * 2);
+}

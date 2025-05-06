@@ -4,6 +4,7 @@ import {
   useState,
   ReactNode,
   useEffect,
+  useRef,
 } from 'react';
 
 type Theme = 'consciousness' | 'subconsciousness';
@@ -28,12 +29,20 @@ export const useThemeContext = () => {
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('subconsciousness');
+  const [theme, setTheme] = useState<Theme>('consciousness');
+  const changing = useRef(false);
 
   const toggleTheme = () => {
+    if (changing.current) {
+      return;
+    }
+    changing.current = true;
     setTheme((prevTheme) =>
       prevTheme === 'subconsciousness' ? 'consciousness' : 'subconsciousness'
     );
+    setTimeout(() => {
+      changing.current = false;
+    }, 1000);
   };
 
   useEffect(() => {

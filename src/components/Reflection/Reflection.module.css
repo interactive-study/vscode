@@ -9,19 +9,18 @@
 }
 
 .reflection {
-  width: 30vw;
-  max-width: 500px;
+  width: var(--editor-size);
   height: 100%;
   background: var(--reflection-bg);
   padding: 10px;
-  color: white;
+  color: var(--reflection-text-color);
   font-size: 3rem;
   font-weight: 700;
   font-family: 'Cascadia Code';
   transform: var(--reflection-transform);
   transform-origin: top;
   overflow: hidden;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .fragments {

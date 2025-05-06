@@ -1,3 +1,4 @@
+import Sun from './components/Celestial/Sun';
 import ResetButton from './components/Controllers/ResetButton';
 import SwitchButton from './components/Controllers/SwitchButton';
 import Editor from './components/Editor';
@@ -18,6 +19,10 @@ function App() {
         <div className={styles.controllers}>
           <SwitchButton />
           <ResetButton />
+        </div>
+
+        <div className={styles.celestial}>
+          <Sun />
         </div>
       </TabsProvider>
     </ThemeProvider>
