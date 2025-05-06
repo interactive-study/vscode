@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import styles from './Sun.module.css';
-import { useThemeContext } from '../../../contexts/ThemeContext';
 
 export default function Sun() {
   const paths = [
@@ -11,8 +10,6 @@ export default function Sun() {
   ];
   const sunPathRef = useRef<SVGPathElement | null>(null);
   const currentIndx = useRef(0);
-  const { theme, toggleTheme } = useThemeContext();
-  const sunText = theme === 'consciousness' ? 'bye sun' : 'hello sun';
 
   useEffect(() => {
     let lastUpdated = 0;
@@ -42,22 +39,17 @@ export default function Sun() {
   });
 
   return (
-    <div className={styles.container}>
-      <svg
-        className={styles.sun}
-        viewBox="0 0 22 22"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path ref={sunPathRef} d={paths[0]} fill="black" />
-        <path
-          d="M16 9V13H15V14H14V15H13V16H9V15H8V14H7V13H6V9H7V8H8V7H9V6H13V7H14V8H15V9H16Z"
-          fill="black"
-        />
-      </svg>
-      <div className={styles.blind} onClick={toggleTheme}>
-        <span>{sunText}</span>
-      </div>
-    </div>
+    <svg
+      className={styles.sun}
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path ref={sunPathRef} d={paths[0]} fill="black" />
+      <path
+        d="M16 9V13H15V14H14V15H13V16H9V15H8V14H7V13H6V9H7V8H8V7H9V6H13V7H14V8H15V9H16Z"
+        fill="black"
+      />
+    </svg>
   );
 }

@@ -1,4 +1,6 @@
-.sun {
+.moon {
+  position: absolute;
+  top: 30px;
   width: var(--sun-size);
   height: var(--sun-size);
 }

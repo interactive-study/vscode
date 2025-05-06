@@ -42,7 +42,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     );
     setTimeout(() => {
       changing.current = false;
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
